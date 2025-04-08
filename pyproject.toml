@@ -1,0 +1,191 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "tf-pre-commit"
+dynamic = ["version"]
+description = 'Python based terraform pre-commit hook'
+readme = "README.md"
+requires-python = ">=3.9"
+license = "BSD-3-Clause"
+keywords = ["terraform", "pre-commit", "hook"]
+authors = [
+  { name = "Dalwar Hossain", email = "dalwar23@pm.me" },
+]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Environment :: Console",
+  "License :: OSI Approved",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: Implementation :: PyPy",
+]
+dependencies = []
+
+[project.urls]
+Documentation = "https://github.com/devopsforhumans/tf-pre-commit/README.md"
+Issues = "https://github.com/devopsforhumans/tf-pre-commit/issues"
+Source = "https://github.com/devopsforhumans/tf-pre-commit"
+
+[project.scripts]
+fmt = "src.tf_pre_commit.fmt:main"
+
+[tool.hatch.version]
+path = "src/tf_pre_commit/__about__.py"
+
+[tool.hatch.build]
+include = [
+  "src/tf_pre_commit",
+]
+
+[tool.hatch.build.targets.sdist]
+exclude = [
+  ".github/",
+  "docs/",
+]
+
+[[tool.hatch.envs.all.matrix]]
+python = ["3.9", "3.10", "3.11", "3.12"]
+
+[tool.hatch.envs.lint]
+detached = true
+dependencies = [
+  "black>=23.12.1",
+  "ruff>=0.1.14",
+  "flake8>=7.0.0",
+]
+
+[tool.hatch.envs.lint.scripts]
+style = [
+  "ruff {args:.}",
+  "black --check --diff {args:.}",
+]
+fmt = [
+  "black {args:.}",
+  "ruff --fix {args:.}",
+  "style",
+]
+all = [
+  "fmt",
+]
+
+[tool.black]
+target-version = ["py312"]
+line-length = 120
+skip-string-normalization = true
+
+[tool.ruff]
+target-version = "py312"
+line-length = 120
+lint.select = [
+  "A",
+  "ARG",
+  "B",
+  "C",
+  "DTZ",
+  "E",
+  "EM",
+  "F",
+  "FBT",
+  "I",
+  "ICN",
+  "ISC",
+  "N",
+  "PLC",
+  "PLE",
+  "PLR",
+  "PLW",
+  "Q",
+  "RUF",
+  "S",
+  "T",
+  "TID",
+  "UP",
+  "W",
+  "YTT",
+]
+lint.ignore = [
+  # Allow non-abstract empty methods in abstract base classes
+  "B027",
+  # Allow boolean positional values in function calls, like `dict.get(... True)`
+  "FBT003",
+  # Ignore checks for possible passwords
+  "S105", "S106", "S107",
+  # Ignore complexity
+  "C901", "PLR0911", "PLR0912", "PLR0913", "PLR0915",
+  # Argument name should be lowercase
+  "N803",
+  # fString without a placeholder
+  "F541",
+  # Prefer absolute imports over relative imports
+  "TID252",
+  # Boolean default positional argument in function definition
+  "FBT001", "FBT002",
+  # Print found
+  "T201",
+  # Single qote
+  "Q000",
+  # Subprocess
+  "S603",
+]
+lint.unfixable = [
+  # Don't touch unused imports
+  "F401",
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["tf_pre_commit"]
+
+[tool.ruff.lint.flake8-tidy-imports]
+ban-relative-imports = "all"
+
+[tool.ruff.lint.per-file-ignores]
+# Tests can use magic values, assertions, and relative imports
+"tests/**/*" = ["PLR2004", "S101", "TID252"]
+
+[tool.bumpversion]
+current_version = "1.0.0"
+parse = "(?P<major>\\d+)\\.(?P<minor>\\d+)\\.(?P<patch>\\d+)"
+serialize = ["{major}.{minor}.{patch}"]
+#parse = """(?x)
+#    (?P<major>[0-9]+)
+#    \\.(?P<minor>[0-9]+)
+#    \\.(?P<patch>[0-9]+)
+#    (?:
+#        -(?P<pre_label>alpha|beta|rc|stable)
+#        (?:.(?P<pre_n>[0-9]+))?
+#    )?
+#"""
+#serialize = [
+#  "{major}.{minor}.{patch}-{pre_label}.{pre_n}",
+#  "{major}.{minor}.{patch}",
+#]
+regex = false
+ignore_missing_version = false
+tag = false
+sign_tags = false
+tag_name = "v{new_version}"
+tag_message = "Bump version: {current_version} → {new_version}"
+allow_dirty = false
+commit = true
+message = "Bump version: {current_version} → {new_version}"
+commit_args = ""
+
+[[tool.bumpversion.files]]
+filename = "src/tf_pre_commit/__about__.py"
+search = '__version__ = "{current_version}"'
+replace = '__version__ = "{new_version}"'
+
+[[tool.bumpversion.files]]
+filename = "pyproject.toml"
+search = 'current_version = "{current_version}"'
+replace = 'current_version = "{new_version}"'
+
+[[tool.bumpversion.files]]
+filename = 'README.md'
+search = 'rev: v{current_version}'
+replace = 'rev: v{new_version}'

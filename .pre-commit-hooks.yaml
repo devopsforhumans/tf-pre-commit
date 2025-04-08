@@ -1,0 +1,8 @@
+- id: terraform-fmt
+  name: Lint terraform files
+  description: Prevent malformed terraform script being commited
+  entry: fmt
+  language: python
+  require_serial: true
+  stages: [pre-commit]
+  types: [terraform]
