@@ -33,7 +33,7 @@ if you want to provide `options` or `global options` (try `terraform fmt --help`
     hooks:
       id: terraform-fmt
       args:
-          - --option="-no-color -diff -check"
+          - --options="-no-color -diff -check"
 ...
 ```
 
