@@ -1,5 +1,5 @@
 
-name: kumaone python package
+name: tf-pre-commit python package
 
 on:
   push:
