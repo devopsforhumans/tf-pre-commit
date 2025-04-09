@@ -8,6 +8,8 @@ import os
 import subprocess
 from collections.abc import Sequence
 
+from .__about__ import __version__ as app_version
+
 # Source code meta data
 __author__ = "Dalwar Hossain"
 __email__ = "dalwar23@pm.me"
@@ -77,10 +79,13 @@ def main(argv: Sequence[str] | None = None) -> int:
     :return: exit code of terraform linting
     """
 
-    parser = argparse.ArgumentParser(description="Run terraform linting")
-    parser.add_argument("--global-options", help="Global options for terraform")
-    parser.add_argument("--options", help="Options for terraform fmt")
-    parser.add_argument("filenames", nargs="*", help="Filenames to run")
+    parser = argparse.ArgumentParser(description="Run terraform linting with terraform fmt command")
+    parser.add_argument("-v", "--version", action="version", version=f"v{app_version}")
+    parser.add_argument(
+        "--global-options", help="Global options for terraform, try (terraform -help) to see the global options"
+    )
+    parser.add_argument("--options", help="Options for terraform fmt, (try terraform fmt -help) to see the options")
+    parser.add_argument("filenames", nargs="*", help="Filenames to run linting on")
     args = parser.parse_args(argv)
     exit_code = 0
     if args.filenames:

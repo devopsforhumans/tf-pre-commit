@@ -32,7 +32,7 @@ Issues = "https://github.com/devopsforhumans/tf-pre-commit/issues"
 Source = "https://github.com/devopsforhumans/tf-pre-commit"
 
 [project.scripts]
-fmt = "src.tf_pre_commit.fmt:main"
+tf-fmt = "src.tf_pre_commit.fmt:main"
 
 [tool.hatch.version]
 path = "src/tf_pre_commit/__about__.py"
@@ -43,6 +43,12 @@ include = [
 ]
 
 [tool.hatch.build.targets.sdist]
+exclude = [
+  ".github/",
+  "docs/",
+]
+
+[tool.hatch.build.targets.wheel]
 exclude = [
   ".github/",
   "docs/",
