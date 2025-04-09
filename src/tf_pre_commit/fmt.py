@@ -2,6 +2,8 @@
 
 """Main module for tf-pre-commit"""
 
+from __future__ import annotations
+
 # Import builtin python libraries
 import argparse
 import os
@@ -15,7 +17,7 @@ __author__ = "Dalwar Hossain"
 __email__ = "dalwar23@pm.me"
 
 
-def _option_parser(options_to_parse: str) -> list[str] | None:
+def _option_parser(options_to_parse: str | None = None) -> list[str] | None:
     """
     Parse provided options and generate less error-prone options string
     :param options_to_parse: (str | LiteralString) Global options or options to parse
