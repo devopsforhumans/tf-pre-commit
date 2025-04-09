@@ -30,10 +30,12 @@ jobs:
         run: python -m pip install --upgrade pip pre-commit hatch
       - name: Install dependencies
         run: python -m pip install -r requirements.txt -r requirements_dev.txt
-      - name: Install hooks
-        run: pre-commit install
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/pre-commit
+          key: pre-commit-4|${{ env.pythonLocation }}|${{ hashFiles('.pre-commit-config.yaml') }}
       - name: Run pre-commit hooks
-        run: pre-commit run --all-files
+        run: pre-commit run --show-diff-on-failure --color=always --all-files
       - name: Build tf-pre-commit python package
         run: hatch build
       - name: Install tf-pre-commit package
