@@ -35,7 +35,7 @@ jobs:
           path: ~/.cache/pre-commit
           key: pre-commit-4|${{ env.pythonLocation }}|${{ hashFiles('.pre-commit-config.yaml') }}
       - name: Run pre-commit hooks
-        run: pre-commit run --show-diff-on-failure --color=always --all-files
+        run: pre-commit run --show-diff-on-failure --all-files
       - name: Build tf-pre-commit python package
         run: hatch build
       - name: Install tf-pre-commit package
