@@ -2,7 +2,7 @@
 
 """About module for tf-pre-commit"""
 
-__version__ = "1.0.3"
+__version__ = "1.0.4"
 __author__ = "Dalwar Hossain"
 __email__ = "dalwar23@pm.me"
 __license__ = "BSD 3-Clause"
