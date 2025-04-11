@@ -18,7 +18,7 @@ Add the following `repo` to your `.pre-commit-config.yaml`
 
 ```yaml
 ...
-  - repo: https://github.com/devopsforhuman/tf-pre-commit
+  - repo: https://github.com/devopsforhumans/tf-pre-commit
     rev: v1.0.3
     hooks:
       - id: terraform-fmt
@@ -28,7 +28,7 @@ if you want to provide `options` or `global options` (try `terraform fmt --help`
 
 ```yaml
 ...
-  - repo: https://github.com/devopsforhuman/tf-pre-commit
+  - repo: https://github.com/devopsforhumans/tf-pre-commit.git
     rev: v1.0.3
     hooks:
       - id: terraform-fmt
