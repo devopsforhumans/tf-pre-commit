@@ -179,7 +179,7 @@ tag_message = "Bump version: {current_version} → {new_version}"
 allow_dirty = false
 commit = true
 message = "Bump version: {current_version} → {new_version}"
-commit_args = ""
+commit_args = "-s"
 
 [[tool.bumpversion.files]]
 filename = "src/tf_pre_commit/__about__.py"
