@@ -21,7 +21,7 @@ Add the following `repo` to your `.pre-commit-config.yaml`
   - repo: https://github.com/devopsforhuman/tf-pre-commit
     rev: v1.0.2
     hooks:
-      id: terraform-fmt
+      - id: terraform-fmt
 ...
 ```
 if you want to provide `options` or `global options` (try `terraform fmt --help`) then use `args`
@@ -31,8 +31,8 @@ if you want to provide `options` or `global options` (try `terraform fmt --help`
   - repo: https://github.com/devopsforhuman/tf-pre-commit
     rev: v1.0.2
     hooks:
-      id: terraform-fmt
-      args:
+      - id: terraform-fmt
+        args:
           - --options="-no-color -diff -check"
 ...
 ```
